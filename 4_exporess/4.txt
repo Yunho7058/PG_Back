@@ -1,0 +1,54 @@
+------
+post,get,delete,put 실습
+youtuber-demo.js 참조
+------
+메모를 생활화하자!
+1.핸들러 란?
+
+    HTTP request가 날라오면 자동으로 호출되는 메소드
+    노드에서는 콜백함수로 app.HTTPMETHOD(path,핸들러)
+    ex) app.delete('url',function(req,res){코드 내용})
+    => 요청을 보내거나 왔을때 내가만든 함수 실행해줘  
+
+2.json 배열, find() 예외 처리
+    expressTest.js 참조
+
+3. == vs ===
+
+    status code 상태
+        200 => 성공(조회,수정,삭제)
+        201 => 등록
+        404 => 찾는 소스가 없음
+        500 => 서버 죽었을때
+        400 => 데이터좀 정확히 보내줘
+
+        4** => client 잘못
+        5** => server 잘못
+        2** => 성공
+
+    == 과 === 차이점
+
+        123 == 123        // true
+        10 == '10'      // true
+        1 == true         // true
+        true == 'true'    // true
+        null == undefined // true
+
+        55 === 55        // true
+        10 === '10'      // false
+        1 === true         // false
+        true === 'true'    // false
+        null === undefined // false
+        NaN === NaN        // false
+
+        => 문자열,숫자(자료형)등 타입에 따른 차이 발생 
+
+4. API 고도화 1
+    상태,조건문,예외처리,상태코드 리팩토링?
+    youtuber-demo.js 참조    
+
+5. API 고도화 2
+    상태,조건문,예외처리,상태코드 리팩토링?
+    youtuber-demo.js 참조 
+
+YOUTUBER-DEMO 폴더 이어서 작성

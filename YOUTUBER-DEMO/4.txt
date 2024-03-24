@@ -1,0 +1,27 @@
+6. 미니 프로젝트
+    실제 사이트 만들기 ex) 유튜브 TMI)한사용자가 100개 채널 관리 가능
+        1. 회원기능(로그인,회원가입 등) 
+        2. 채널관린(CRUD)
+
+    회원기능
+        1. 로그인 페이지 => 로그인 요청 API
+            POST/login (body필요시에도 사용)
+            -. req:body(id,pwd) 로그인 요청 보냄
+            -. res:`{name}님 하이요.` -> 메인페이지 이동 (router 이용?)
+
+        2. 회원가입 페이지  => 회원 생성 API
+            POST/join
+            -. req:body(id,pwd,name,email) 
+            -. res:`{name}님 하이요.` -> 로그인페이지 이동
+
+        3. 회원탈퇴(마이페이지) 페이지 => 탈퇴 요쳥 API
+            DELETE/users/:id 
+            -. req:URL(id) 
+            -. res:`{name}님 담에 봐요.` -> 메인페이지 이동
+
+        4. 마이 페이지 => 회원정보 조회 API
+            GET/users/:id  -> 개별조회를 위해 아이디 보내기
+            -. req:URL(id) 
+            -. res:id,name,email
+
+7. 위 내용 토대로 코드 작성하기
