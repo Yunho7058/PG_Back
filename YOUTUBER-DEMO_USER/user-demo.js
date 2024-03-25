@@ -7,7 +7,31 @@ app.get('/', (req, res) => res.send('Hello World'));
 const userInfo = [];
 let id = 1;
 //로그인 기능
-app.post('/login', (req, res) => {});
+app.post('/login', (req, res) => {
+  //1. 사용자로부터 아이디 비번 받고
+  //2. db 찾기 (우리는 위에 객체에서 찾기)
+  const { userId, pwd } = req.body;
+  const user = userInfo.filter((el) => el.userId === userId);
+  // 영상에서는 let hasUserInfo = false 변수 하나만들어 관리
+  const userInfoIsEmpty = Boolean(user.length);
+  if (!userInfoIsEmpty) {
+    // 유저정보가 없습니다 이이디 확인해주세요
+    res.status(404).json({
+      message: '이이디를 확인해주세요.',
+    });
+    return;
+  } else if (pwd === user[0].pwd) {
+    // 유저있으면 비밀번호 맞는지 확인, 맞는경우
+    res.status(200).json({
+      message: `${user[0].name}님 환영합니다.`,
+    });
+  } else {
+    // 비밀번호 틀릴경우
+    res.status(400).json({
+      message: '비밀번호를 확인해주세요.',
+    });
+  }
+});
 //회원가입 기능
 app.post('/singup', (req, res) => {
   const { userId, pwd, name } = req.body;

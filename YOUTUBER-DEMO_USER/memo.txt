@@ -1,0 +1,74 @@
+6. 미니 프로젝트
+    실제 사이트 만들기 ex) 유튜브 TMI)한사용자가 100개 채널 관리 가능
+        1. 회원기능(로그인,회원가입 등) 
+        2. 채널관린(CRUD)
+
+    회원기능
+        1. 로그인 페이지 => 로그인 요청 API
+            POST/login (body필요시에도 사용)
+            -. req:body(id,pwd) 로그인 요청 보냄
+            -. res:`{name}님 하이요.` -> 메인페이지 이동 (router 이용?)
+
+        2. 회원가입 페이지  => 회원 생성 API
+            POST/join
+            -. req:body(id,pwd,name,email) 
+            -. res:`{name}님 하이요.` -> 로그인페이지 이동
+
+        3. 회원탈퇴(마이페이지) 페이지 => 탈퇴 요쳥 API
+            DELETE/users/:id 
+            -. req:URL(id) 
+            -. res:`{name}님 담에 봐요.` -> 메인페이지 이동
+
+        4. 마이 페이지 => 회원정보 조회 API
+            GET/users/:id  -> 개별조회를 위해 아이디 보내기
+            -. req:URL(id) 
+            -. res:id,name,email
+
+7. 위 내용 토대로 코드 작성하기
+
+
+0325
+
+1. 로그인 api 유효성검사
+    user-demo.js 코드 참조
+
+2. 로그인 예외처리
+    user-demo.js 코드 참조
+
+3. Object 빈객체 찾는 방법
+    1. Object.keys()
+    2. for 반복문 -> 제일 후순위, 코드 가독성 및 시간복잡도 -> 서버 과부화 발생 위험 
+    3. lodash <- 라이브러리 나중에 한번 사용해보기
+        isEmpty 비웠는지 있는지 체크하는 방법
+    
+    Object.keys() -> 코테 풀때도 많이 사용
+    new Map 사용할때 같이 사용하면 내가 작성한 코드보다 더 빠를거같다. 
+    앞으로 코드를 작성할때 new Map 사용? filter 시간복잡도 o(n)
+    객체 형태 사용가능
+    js obj contractor(객체와 생산자) 
+    
+4. 로그인 고도화
+    user-demo.js 코드 참조
+
+5. 채널 생성
+    CRUD
+
+    1. 채널 생성 POST/channel
+    -. req : body
+    -. res : 성공 메세지, 201
+
+    2. 채널 개별 수정 PUT/channel/:id
+    -. req : URL(id), body 
+    -. res : 변경 성공 메세지, 200
+
+    3. 채널 개별 삭제 DELETE/channel/:id
+    -. req : URL(id) 
+    -. res : 삭제 성공 메세지 -> 메인페이지로 보내주기, 200
+
+    4. 채널 전체 조회 GET/channels
+    -. req : x
+    -. res : 전체 데이터, 200
+    
+    5. 채널 개별 조회 GET/channels/:id
+    -. req : URL(id) 
+    -. res : 삭제 성공 메세지 -> 메인페이지로 보내주기, 200
