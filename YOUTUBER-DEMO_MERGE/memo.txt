@@ -1,0 +1,52 @@
+3월26일
+
+1. Router(user-demo와 channel-demo 연결)
+    Node.js 에서의 라우팅이란?
+    경로를 알려주는 프로세스
+    요청이 날아왔을 때, 원하는 경로에 따라 적절한 방향으로 알려주는 것
+    URL , method => 호출 콜백함수 
+
+2. 작성한코드 모듈화후 router로 연결(user,channel)
+    routes폴더 및 app.js 코드확인
+
+3. 유저,채널 ERD 고려해보기
+    회원 - user_id,paw,name
+    채널 - id,title,user_id
+    => user_id를 연결을 통해 각 사용자가 무슨 채널을 만들었는지 확인 가능하게 ERD 작성하기
+
+4. 채널 API 설계 수정
+    1. 채널 생성 POST/channel
+    -. req : body -> 채널이름,유저아이디 등등(토큰)
+    -. res : 성공 메세지, 201
+
+    2. 채널 개별 수정 PUT/channel/:id
+    -. req : URL(id), body 
+    -. res : 변경 성공 메세지, 200
+
+    3. 채널 개별 삭제 DELETE/channel/:id
+    -. req : URL(id) 
+    -. res : 삭제 성공 메세지 -> 메인페이지로 보내주기, 200
+
+    4. 채널 전체 조회 GET/channels
+    -. req : x -> 유저 아이디
+    -. res : 전체 데이터, 200
+    
+    5. 채널 개별 조회 GET/channels/:id
+    -. req : URL(id) 
+    -. res : 삭제 성공 메세지 -> 메인페이지로 보내주기, 200
+
+5. API 수정
+    YOUTUBER-DEMO_MERGE 폴더 -> routes 폴더 코드 확인
+
+6. if문 활용하여 예외처리(중복되는 코드 함수로 만들기 )
+    YOUTUBER-DEMO_MERGE 폴더 -> routes 폴더 코드 확인
+
+7. 백엔드 기초 마무리
+    YOUTUBER-DEMO_MERGE 폴더 -> routes 폴더 코드 확인
+
+
+=> 오늘 배운내용
+1. 작성한 코드(channels.js, users.js) 모듈화
+2. routes(express 내장함수)를 이용하여 app.js 연결
+3. URL 간소화(중복되는 주소)
+4. 중복되는 코드 -> 하나의 함수로 만든후 사용
