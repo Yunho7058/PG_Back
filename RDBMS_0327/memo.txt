@@ -9,4 +9,36 @@
     Relational : 관계 -> 마인드맵
 
 3. PK, 데이터 중복, 정규화
-    PK : Primary Key(기본키) => 해당 테이블의 각row(행)을 유니크하게 구별하는 key
+    PK(Primary Key)[기본키] => 해당 테이블의 각row(행)을 유니크하게 구별하는 key
+    DB에서 동명이인이나 쉽게 찾기 위해, DB value 값일 늘어날수로 데이터 관리하기 힘들다(ex 직업,생년월일,주소,핸드폰번호,작성한게시물*갯수)
+    -> 데이터를 쪼갠다 즉, 정규화 를 시킨다
+
+4. 데이터 분리시 장,단점 (정규화)
+    FK(Foreing key)[외래키] => A테이블에서 B테이블를 찾아가고싶을때 사용하는 key
+
+    장점. 중복이 사라졌다, 쪼개짐
+    단점. 가독성이 떨어짐? 데이터 찾기가 번거로워짐
+
+    데이터베이스 연관관계, 테이블간에 연결관계
+    1:1
+    1:N
+    M:N
+    ex) 게시글 테이블과 사용자 테이블간에
+        사용자 1명 : 게시글 여러개 작성 가능 1:N
+        게시글 1개 : 사용자 1명 1:1
+    (설계는 계속 고쳐나가는것!)
+
+5. docker에서 mariadb  접속
+    1. docker 다운
+    2. docker 에서 mariadb 접속
+        -. docker pull mariadb
+        -. docker images
+        -. docker run --name mariadb -d -p 3306:3306 --restart=always -e SQL_ROOT_PASSWORD=root mariadb
+        -. docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=password [추가내용] -e TZ=Asia/Seoul --name mariadb mariadb --lower_case_table_names=1
+            -d 옵션은 백그라운드에서의 실행을 의미한다.
+            -p 옵션은 아웃바운드와 인바운드 포트 포워딩을 의미한다.(호스트 포트:컨테이너 포트, 밖에서 들어오는 포트와 실제 도커 내부에서의 포트를 연결)
+            -e 옵션은 환경 변수를 의미하며 ROOT 계정의 비밀번호를 "password"로 세팅하겠다는 뜻이다.
+            --name 옵션은 바로 뒤에 입력한 이름으로 컨테이너 이름을 설정해준다. (--name [컨테이너 이름] [이미지 이름])
+        -. docker ps
+        -. docker exec -it mariadb /bin/bash
+        -. mysql -u root -p
