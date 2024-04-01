@@ -30,8 +30,8 @@
                 PRIMARY KEY(id)
             )
         -. 삽입
-            INSERT INTO posts(title,content)
-            VALUES (title1,content1);
+            INSERT INTO posts(title,content,user_id)
+            VALUES (title1,content1,1);
 
     4. 게시글 테이블에 수정일자 추가
         ALTER  TABLE posts
@@ -77,3 +77,5 @@
 4. join
     SELECT * FROM posts LEFT
     JOIN users ON posts.user_id=user_id; 
+
+5. MySQLWorkbench 이용하여 DB CRUD
