@@ -1,0 +1,13 @@
+0329
+
+TCP/IP 란
+
+1. MySQLWorkbench 사용법
+    스크린샷 참조
+
+2. DB 연동
+    npm i --save mysql2 -> install
+
+    DB안 DATE 값
+    set global time_zone='Asia/Seoul' 
+
