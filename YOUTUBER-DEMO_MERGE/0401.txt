@@ -4,4 +4,18 @@
     js 파일에 다지고 다닐수 없기때문에 모듈화 하기
 
 2. get user db 연동
-    
+    `SELECT * FROM users WHERE email =?`,변수(routes/users.js 57줄)
+    sorket 인라 클라이언트와 서버가 주고받는  주머니
+
+3. 회원가입
+     conn.query(
+      `INSERT INTO users(email, pwd, name,contact) VALUES (?,?,?,?)`,
+      [email, pwd, name, contact], <- 값 한번에 넣기
+      (err, results, fields) => {}
+    );
+
+4. 회원탈퇴
+5. 회원조회
+6. 리팩토링 코드정리
+    주석 제거, 안쓰는 코드 제거, 안쓰는 변수 제거
+7. routes 폴더 안에있는 users.js, channels.js 리팩토링 진행
