@@ -1,0 +1,23 @@
+1. 유효성 검사 -> channels.js 코드 확인
+    게시물 생성시나, 회원가입시 입력값이 맞는지 유효성 검사 후 데이터 생성하기
+    valid ation
+    사용자가 입력한 값 유효성 (= 타당성)을 확인하는것
+
+    user id : 값이 있고, 숫자
+    사람 name : 숫자 x,문자열, 몇자 이상 등등...
+
+    > 외부 모듈 'express-validator'
+        역할
+        -. req 날아오는 데이터 가공을 도와줄게
+        const { body, validationResult } = require('express-validator');
+        err.array()
+        사용법 블로그로 정리하기
+        유효성 검사 body, param 등 함수 이용하기
+        post(유효성 메소드,url,(res,req))
+
+2. 채널 생성할때 없는 유저 아이디를 입력시 포스맨, 서버쪽에서는 문제 없이 작동하지만 워크밴치에는 등록이 안됌
+    에러 처리 따로 해주기
+    express-validator 사용해 유효성 검사 진행
+    -> 여러가지 사용법 코드참고후 블로그 정리 
+
+    
