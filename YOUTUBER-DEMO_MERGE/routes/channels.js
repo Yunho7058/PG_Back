@@ -13,14 +13,14 @@ router.use(express.json()); //json 형태로 사용
 const validate = (req, res, next) => {
   const err = validationResult(req);
   //! 유효성 검사 후 데이터 넣기
-  if (!err.isEmpty()) {
+  if (err.isEmpty()) {
     // err 발생, 유효성 검사 통과 못했을때
     //!err.array() -> 어디서 어떻게 err 발생했는지 알려주는 배열
+    return next();
+  } else {
     return res.status(400).json({
       message: `입력값 확인해주세요.`,
     });
-  } else {
-    return next();
   }
 };
 
@@ -34,7 +34,6 @@ router
       validate,
     ],
     (req, res, next) => {
-      validate(req, res);
       const { title, userId } = req.body;
       conn.query(
         `INSERT INTO channels(title,user_id) VALUES (?,?)`,
@@ -44,10 +43,11 @@ router
           if (err) {
             throw err;
             //return res.status(400).end();
+          } else {
+            res.status(201).json({
+              message: `${title}님 환영합니다.`,
+            });
           }
-          res.status(201).json({
-            message: `${title}님 환영합니다.`,
-          });
         }
       );
     }
@@ -89,48 +89,38 @@ router
   .put(
     [
       param('id').notEmpty().withMessage('채널 아이디 필요!'),
-      body('name').notEmpty().withMessage('채널 이름 필요!'),
+      body('title').notEmpty().withMessage('채널 이름 필요!'),
+      validate,
     ],
     (req, res) => {
-      const err = validationResult(req);
-      if (!err.isEmpty()) {
-        return res.status(400).json({
-          message: `입력값 확인해주세요.`,
-        });
-      }
       let { id } = req.params;
-      let { name } = req.body;
+      let { title } = req.body;
       id = Number(id);
 
       conn.query(
-        `UPTADE channels SET name = ? WHERE id = ?`,
-        [name, id],
+        `UPDATE channels SET title = ? WHERE id = ?;`,
+        [title, id],
         (err, results) => {
           if (err) {
-            throw err;
+            return res.status(400).end();
           }
-          results.affectedRows
-            ? res.status(200).json(results)
-            : notFoundChannels(res);
+          if (results.affectedRows) {
+            return res.status(200).json(results);
+          } else {
+            return notFoundChannels(res);
+          }
         }
       );
     }
   )
   .delete(
-    param('id').notEmpty().withMessage('채널 아이디 필요!'),
+    [param('id').notEmpty().withMessage('채널 아이디 필요!'), validate],
     (req, res) => {
-      const err = validationResult(req);
-      if (!err.isEmpty()) {
-        return res.status(400).json({
-          message: `입력값 확인해주세요.`,
-        });
-      }
       let { id } = req.params;
       id = Number(id);
 
       conn.query(`DELETE FROM channels WHERE id =?`, id, (err, results) => {
         if (err) {
-          console.log(err);
           throw err;
         }
         results.affectedRows
@@ -139,17 +129,21 @@ router
       });
     }
   )
-  .get(param('id').notEmpty().withMessage('채널 아이디 필요!'), (req, res) => {
-    let { id } = req.params;
-    id = Number(id);
-    conn.query(`SELECT * FROM channels WHERE id = ?`, id, (err, results) => {
-      if (results.length) {
-        res.status(200).json(results);
-      } else {
-        notFoundChannels(res);
-      }
-    });
-  });
+  .get(
+    [param('id').notEmpty().withMessage('채널 아이디 필요!'), validate],
+    (req, res) => {
+      let { id } = req.params;
+      id = Number(id);
+
+      conn.query(`SELECT * FROM channels WHERE id = ?`, id, (err, results) => {
+        if (results.length) {
+          res.status(200).json(results);
+        } else {
+          notFoundChannels(res);
+        }
+      });
+    }
+  );
 const notFoundChannels = (res) => {
   res.status(404).json({
     message: `채널이 정보를 찾을수 없어요ㅠ.`,
