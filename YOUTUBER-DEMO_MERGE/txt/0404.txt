@@ -1,0 +1,8 @@
+1. 쿠키 파셔 npm
+    users.js 로그인 로직 확인
+
+2. HTTP vs 
+
+   HTTPS vs 
+   
+   httpOnliy(Xss공격 : 프로트 엔드 공격 웹 브라우저 js 접근해 공격)

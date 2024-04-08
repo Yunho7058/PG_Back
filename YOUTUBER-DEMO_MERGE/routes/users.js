@@ -52,16 +52,23 @@ router.post(
         if (loginUser && loginUser.password === password) {
           //이메일이 있으면 비밀번호 확인하기
           //토큰 발급
-          let token = jwt.sign(
+          const token = jwt.sign(
             { email: loginUser.email, name: loginUser.name },
-            process.env.PRIVATE_KEY
+            process.env.PRIVATE_KEY,
+            {
+              expiresIn: '5m',
+              issuer: 'yunho',
+            }
           );
+          //쿠키
+          res.cookie('token', token, { httpOnly: true });
           res.status(200).json({
             message: `${loginUser.name}님 환영합니다.`,
-            token: token,
+            //token: token,
           });
         } else {
-          res.status(404).json({
+          //403 클라이언트가 거절당했다. 그래서 너를 인정해줄수 없다 .
+          res.status(403).json({
             message: '아이디 또는 비밀번호를 확인해주세요.',
           });
         }
